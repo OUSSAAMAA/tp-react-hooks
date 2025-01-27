@@ -1,8 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { ThemeContext } from '../App';
 
-const ProductSearch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+
+// const [searchTerm, setSearchTerm] = useState('');
+
+const ProductSearch = ({ setSearchTerm }) => {
   const { isDarkTheme } = useContext(ThemeContext);
   // TODO: Exercice 2.1 - Utiliser le LanguageContext
   
@@ -12,7 +14,6 @@ const ProductSearch = () => {
     <div className="mb-4">
       <input
         type="text"
-        value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Rechercher un produit..."
         className={`form-control ${isDarkTheme ? 'bg-dark text-light' : ''}`}

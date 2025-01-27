@@ -52,10 +52,12 @@ Pour chaque exercice :
 - [ ] 1.3 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 1 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+
+   1 -Les modifications que j'ai apportées à la composante ProductSearch reposent sur l'utilisation de la technique du Lifting State Up. Cette technique consiste à déplacer l'état du searchTerm (terme de recherche) du composant enfant ProductSearch vers le composant parent App. Cela me permet de partager le terme de recherche avec le composant qui affiche la liste, ici ProductList.
+
+   Dans ProductList, j'ai passé le searchTerm en tant qu'argument, que j'ai renommé filteringTerm. Ce dernier est ensuite utilisé dans ProductList pour filtrer la liste des produits en fonction du terme de recherche saisi par l'utilisateur dans ProductSearch
+   <img src="./public/assets/readme/seachAproduct.png">
+
 
 ### Exercice 2 : Context et Internationalisation
 #### Objectif : Gérer les préférences de langue
