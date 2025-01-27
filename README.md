@@ -47,17 +47,15 @@ Pour chaque exercice :
 ### Exercice 1 : État et Effets 
 #### Objectif : Implémenter une recherche en temps réel
 
-- [ ] 1.1 Modifier le composant ProductSearch pour utiliser la recherche
-- [ ] 1.2 Implémenter le debounce sur la recherche
-- [ ] 1.3 Documenter votre solution ici
-
-_Votre réponse pour l'exercice 1 :_
-
-   1 -Les modifications que j'ai apportées à la composante ProductSearch reposent sur l'utilisation de la technique du Lifting State Up. Cette technique consiste à déplacer l'état du searchTerm (terme de recherche) du composant enfant ProductSearch vers le composant parent App. Cela me permet de partager le terme de recherche avec le composant qui affiche la liste, ici ProductList.
+   - [ ] 1.1 Les modifications que j'ai apportées à la composante ProductSearch reposent sur l'utilisation de la technique du Lifting State Up. Cette technique consiste à déplacer l'état du searchTerm (terme de recherche) du composant enfant ProductSearch vers le composant parent App. Cela me permet de partager le terme de recherche avec le composant qui affiche la liste, ici ProductList.
 
    Dans ProductList, j'ai passé le searchTerm en tant qu'argument, que j'ai renommé filteringTerm. Ce dernier est ensuite utilisé dans ProductList pour filtrer la liste des produits en fonction du terme de recherche saisi par l'utilisateur dans ProductSearch
-   <img src="./public/assets/readme/seachAproduct.png">
 
+- [ ] 1.2
+   terme de recherche. La technique du debounce consiste à retarder la mise à jour du terme de recherche utilisé pour filtrer la liste des produits, afin d'éviter de trop nombreuses mises à jour inutiles pendant que l'utilisateur tape.
+   Dans ce cas, l'état searchTerm est mis à jour à chaque fois que l'utilisateur saisit un caractère dans le champ de recherche. Un useEffect est utilisé pour gérer ce comportement : dès que l'utilisateur cesse de taper pendant un délai de 500ms, le terme de recherche est transféré dans l'état debouncedSearchTerm.
+
+   <img src="./public/assets/readme/seachAproduct.png">
 
 ### Exercice 2 : Context et Internationalisation
 #### Objectif : Gérer les préférences de langue
