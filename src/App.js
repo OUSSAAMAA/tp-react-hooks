@@ -1,35 +1,43 @@
-import React, { createContext, useState,useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 import ProductList from './components/ProductList';
 import ProductSearch from './components/ProductSearch';
 import ThemeToggle from './components/ThemeToggle';
+import useDebounce from './hooks/useDebounce';
 
 // TODO: Exercice 2.1 - Créer le LanguageContext
 
 export const ThemeContext = createContext();
+export const LanguageContext = createContext();
 
 const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
-  // TODO: Exercice 2.2 - Ajouter l'état pour la langue
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
+  const [selectedlangue, setSelectedlangue] = useState("En");
+  
+  const handleChange = (event) => {
+    setSelectedlangue(event.target.value);
+  };
+
 
   return (
     <ThemeContext.Provider value={{ isDarkTheme, setIsDarkTheme }}>
-      {/* TODO: Exercice 2.1 - Wrapper avec LanguageContext.Provider */}
+
+      <LanguageContext.Provider value={{ selectedlangue, setSelectedlangue }}>
       <div className={`container ${isDarkTheme ? 'bg-dark text-light' : 'bg-light'}`}>
         <header className="my-4">
-          <h1 className="text-center">Catalogue de Produits</h1>
+          <h1> {selectedlangue} </h1>
+          <h1 className="text-center"> {(selectedlangue === "Fr") ? " Catalogue de Produits" : "Product catalogue "}</h1>
           <div className="d-flex justify-content-end gap-2">
             <ThemeToggle />
-            {/* TODO: Exercice 2.2 - Ajouter le sélecteur de langue */}
+            <select 
+            onChange={handleChange}
+            >
+            <option value="En">english</option>
+            <option value="Fr">frensh</option>
+            </select>
           </div>
         </header>
         <main>
@@ -37,6 +45,8 @@ const App = () => {
           <ProductList filtringTherm={debouncedSearchTerm} />
         </main>
       </div>
+
+      </LanguageContext.Provider>
     </ThemeContext.Provider>
   );
 };
