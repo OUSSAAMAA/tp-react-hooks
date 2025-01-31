@@ -60,45 +60,27 @@ Pour chaque exercice :
 ### Exercice 2 : Context et Internationalisation
 #### Objectif : Gérer les préférences de langue
 
-- [ ] 2.1 Créer le LanguageContext
-- [ ] 2.2 Ajouter le sélecteur de langue
-- [ ] 2.3 Documenter votre solution ici
+J'ai suivi un exemple similaire à celui des thèmes pour ajouter la gestion de la langue dans l'application. Pour cela, j'ai créé un contexte LanguageContext qui permet de partager la langue sélectionnée (par exemple, "Fr" pour français ou "En" pour anglais) à travers tous les composants de l'application.
 
-_Votre réponse pour l'exercice 2 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+   <img src="./public/assets/readme/fr.png">
+   <hr />
+   <img src="./public/assets/readme/en.png">
+
 
 ### Exercice 3 : Hooks Personnalisés
 #### Objectif : Créer des hooks réutilisables
 
-- [ ] 3.1 Créer le hook useDebounce
-- [ ] 3.2 Créer le hook useLocalStorage
-- [ ] 3.3 Documenter votre solution ici
-
-_Votre réponse pour l'exercice 3 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+J'ai implémenté un hook personnalisé useDebounce qui permet de retarder l'exécution d'une fonction jusqu'à ce qu'un certain délai (delay) se soit écoulé depuis la dernière modification de la valeur (value). Ce hook est utile pour optimiser les performances
 
 ### Exercice 4 : Gestion Asynchrone et Pagination
 #### Objectif : Gérer le chargement et la pagination
 
-- [ ] 4.1 Ajouter le bouton de rechargement
-- [ ] 4.2 Implémenter la pagination
-- [ ] 4.3 Documenter votre solution ici
+J'ai implémenté la pagination en appelant l'API avec les paramètres skip et limit. Chaque page contient 10 produits, et naviguer vers une nouvelle page signifie sauter 10 * (numéro de la page - 1) produits. Par exemple :
+    
+    Page 1 : Sauter 0 produit (skip = 0), afficher les 10 premiers produits.
 
-_Votre réponse pour l'exercice 4 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+    Page 2 : Sauter 10 produits (skip = 10), afficher les 10 produits suivants.
 
-## Rendu
+    Page 3 : Sauter 20 produits (skip = 20), afficher les 10 produits suivants.
 
-- Ajoutez l'URL de votre dépôt Github dans  **Classroom** et envoyer la réponse dès le démarage de votre projet.
-- Les push doivent se faire au fûr et à mesure que vous avancez dans votre projet.
-- Le README.md doit être à jour avec vos réponses et captures d'écran. 
-- Chaques exercice doit faire l'objet d'au moins un commit avec un message mentionnant le numéro de l'exercice.
+L'état currentPage suit le numéro de la page actuelle, et la valeur de skip est calculée dynamiquement comme 10 * (currentPage - 1). Lorsque l'utilisateur clique sur "Suivant" ou "Précédent", la valeur de currentPage est mise à jour, ce qui déclenche un nouvel appel API avec les nouvelles valeurs de skip et limit.

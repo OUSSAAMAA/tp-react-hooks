@@ -4,22 +4,27 @@ import { LanguageContext } from '../App';
 
 import useProductSearch from '../hooks/useProductSearch';
 
-const ProductList = ({filtringTherm}) => {
+const ProductList = ({ filtringTherm }) => {
   const { isDarkTheme } = useContext(ThemeContext);
-  const {selectedlangue} = useContext(LanguageContext);
+  const { selectedlangue } = useContext(LanguageContext);
   
   const { 
     products, 
     loading, 
     error,
-    // TODO: Exercice 4.1 - Récupérer la fonction de rechargement
-    // TODO: Exercice 4.2 - Récupérer les fonctions et états de pagination
+    reload,
+    currentPage,
+    totalPages,
+    nextPage,
+    previousPage,
   } = useProductSearch();
   
   if (loading) return (
     <div className="text-center my-4">
       <div className="spinner-border" role="status">
-        <span className="visually-hidden">  {selectedlangue ===  "Fr" ? "Chargement..." : "loading ..."} </span>
+        <span className="visually-hidden">  
+          {selectedlangue === "Fr" ? "Chargement..." : "loading ..."} 
+        </span>
       </div>
     </div>
   );
@@ -32,56 +37,56 @@ const ProductList = ({filtringTherm}) => {
   
   return (
     <div>
-      {/* TODO: Exercice 4.1 - Ajouter le bouton de rechargement */}
+      <button onClick={reload} className="btn btn-primary mb-3">
+        {selectedlangue === "Fr" ? "Recharger" : "Reload"}
+      </button>
+      
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {products
-        .filter(product => String(product.title).includes(filtringTherm))
-        .map(product => (
-          <div key={product.id} className="col">
-            <div className={`card h-100 ${isDarkTheme ? 'bg-dark text-light' : ''}`}>
-              {product.thumbnail && (
-                <img 
-                  src={product.thumbnail} 
-                  className="card-img-top" 
-                  alt={product.title}
-                  style={{ height: '200px', objectFit: 'cover' }}
-                />
-              )}
-              <div className="card-body">
-                <h5 className="card-title">{product.title}</h5>
-                <p className="card-text">{product.description}</p>
-                <p className="card-text">
-                  <strong>Prix: </strong>
-                  {product.price}€
-                </p>
+          .filter(product => String(product.title).includes(filtringTherm))
+          .map(product => (
+            <div key={product.id} className="col">
+              <div className={`card h-100 ${isDarkTheme ? 'bg-dark text-light' : ''}`}>
+                {product.thumbnail && (
+                  <img 
+                    src={product.thumbnail} 
+                    className="card-img-top" 
+                    alt={product.title}
+                    style={{ height: '200px', objectFit: 'cover' }}
+                  />
+                )}
+                <div className="card-body">
+                  <h5 className="card-title">{product.title}</h5>
+                  <p className="card-text">{product.description}</p>
+                  <p className="card-text">
+                    <strong>Prix: </strong>
+                    {product.price}€
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       
-      {/* TODO: Exercice 4.2 - Ajouter les contrôles de pagination */}
-      {/* Exemple de structure pour la pagination :
       <nav className="mt-4">
         <ul className="pagination justify-content-center">
           <li className="page-item">
             <button className="page-link" onClick={previousPage}>
-              Précédent
+              {selectedlangue === "Fr" ? "Précédent" : "Previous"}
             </button>
           </li>
           <li className="page-item">
             <span className="page-link">
-              Page {currentPage} sur {totalPages}
+              {selectedlangue === "Fr" ? "Page" : "Page"} {currentPage} {selectedlangue === "Fr" ? "sur" : "of"} {totalPages}
             </span>
           </li>
           <li className="page-item">
             <button className="page-link" onClick={nextPage}>
-              Suivant
+              {selectedlangue === "Fr" ? "Suivant" : "Next"}
             </button>
           </li>
         </ul>
       </nav>
-      */}
     </div>
   );
 };
